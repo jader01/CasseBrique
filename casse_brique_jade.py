@@ -1,5 +1,5 @@
 from tkinter import *
-
+ 
  
 #Fonction déplacement de la balle :
 def deplacement():
@@ -10,7 +10,7 @@ def deplacement():
         dx=-1*dx
    
     #Test de la collision avec la raquette :
-    if len(canvas.find_overlapping(canvas.coords(raquette)[0],canvas.coords(raquette)[1],canvas.coords(raquette)[2],canvas.coords(raquette)[3]))>1:
+    if len(canvas.find_overlapping(canvas.coords(raquette)[0],canvas.coords(raquette)[1],canvas.coords(raquette)[2],canvas.coords(raquette)[3]))>1: #[0] haut de la raquette
         dy=-1*dy #balle part en sens inverse quand elle touche la raquette
     
     #Collistion + destricution des briques
@@ -41,9 +41,17 @@ def gauche(event):
 #Fonction creation brique :
 
 def briques():
-   for yb in range(0,100,20) :
-        for xb in range(0,500,50) :
-            brique=canvas.create_rectangle(xb,yb, xb+50, yb+20, fil ='green')
+    for yb in range(0,100,40) : #(0), commence à 0 (100) va jusqua 100 en y en comptant de 20 en 20 (100/20=5 brique)
+        for xb in range(0,500,100) : #commence à 0 va jusqu'a 500 (autre bout de la ligne) et creer  tout les 100 (donc 1/2)
+            brique=canvas.create_rectangle(xb,yb, xb+50, yb+20, fil =('purple'))
+        for xb in range(50,500,100) : #commence à 50 pour pas se superposer, va jusqu'a 500 en comptant de 100
+            brique=canvas.create_rectangle(xb,yb, xb+50, yb+20, fil =('red'))
+    
+    for yb in range(20,100,40) : #(0), commence à 0 (100) va jusqua 100 en y en comptant de 20 en 20 (100/20=5 brique)
+        for xb in range(0,500,100) : #commence à 0 va jusqu'a 500 (autre bout de la ligne) et creer  tout les 100 (donc 1/2)
+            brique=canvas.create_rectangle(xb,yb, xb+50, yb+20, fil =('red'))
+        for xb in range(50,500,100) : #commence à 50 pour pas se superposer, va jusqu'a 500 en comptant de 100
+            brique=canvas.create_rectangle(xb,yb, xb+50, yb+20, fil =('purple'))
 
 #Vitesse de deplacement de la balle:
 dx=5
@@ -55,7 +63,7 @@ canvas = Canvas(tk,width = 500, height = 400 , bd=0, bg="white")
 canvas.pack(padx=10,pady=10)
 
 #Creation  d'un bouton "Quitter":
-Bouton_Quitter=Button(tk, text ='Quitter', command = tk.destroy)
+Bouton_Quitter=Button(tk, text ='rage quitte', command = tk.destroy)
 #On ajoute l'affichage du bouton dans la fenetre :
 Bouton_Quitter.pack()
  
