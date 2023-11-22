@@ -4,10 +4,14 @@ from tkinter import *
 #Fonction déplacement de la balle :
 def deplacement():
     global dx, dy
-    if (canvas.coords(balle1)[3]>400) or (canvas.coords(balle1)[1]<0): #rebond de la balle
+    if (canvas.coords(balle1)[1]<0): #rebond de la balle
         dy=-1*dy
     if (canvas.coords(balle1)[0]<0) or (canvas.coords(balle1)[2]>500): #rebond de la balle
         dx=-1*dx
+    if (canvas.coords(balle1)[3]>400) :
+        perdu=Label(tk, text="perdu !", font=("arial", 500)) #on creer un variable perdu label([la fenetre], [on affiche du texte "le texte en question"], [la taille du texte])
+        perdu.pack()
+        canvas.delete(balle1) #je tue la balle
    
     #Test de la collision avec la raquette :
     if len(canvas.find_overlapping(canvas.coords(raquette)[0],canvas.coords(raquette)[1],canvas.coords(raquette)[2],canvas.coords(raquette)[3]))>1: #[0] haut de la raquette
@@ -31,12 +35,12 @@ def deplacement():
 #Fonction pour le deplacement vers la droite de la raquette:
 def droite(event):
     if (canvas.coords(raquette)[2])<500 :
-        canvas.move(raquette,20,0)
+        canvas.move(raquette,20,0) #20 sur x et 0 sur y
    
 #Fonction pour le deplacement vers la gauche de la raquette:
 def gauche(event):
     if (canvas.coords(raquette)[0])>0 :
-        canvas.move(raquette,-20,0)
+        canvas.move(raquette,-20,0) #-20 sur l'axe x et 0 sur y
  
 #Fonction creation brique :
 
@@ -63,7 +67,7 @@ canvas = Canvas(tk,width = 500, height = 400 , bd=0, bg="white")
 canvas.pack(padx=10,pady=10)
 
 #Creation  d'un bouton "Quitter":
-Bouton_Quitter=Button(tk, text ='rage quitte', command = tk.destroy)
+Bouton_Quitter=Button(tk, text ='quitte', command = tk.destroy)
 #On ajoute l'affichage du bouton dans la fenetre :
 Bouton_Quitter.pack()
  
@@ -71,7 +75,8 @@ Bouton_Quitter.pack()
 balle1 = canvas.create_oval(200,200,230,230,fill='purple')
 
 #On cree une raquette:
-raquette = canvas.create_rectangle(200,380,300,390,fill='black', outline = "white")
+raquette = canvas.create_rectangle(100,380,300,390,fill='black') #permier partie largeur de la raquette, bas, file=couleur raquette
+
 
 
 
